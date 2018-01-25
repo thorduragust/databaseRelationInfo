@@ -66,7 +66,6 @@ unsigned int hashStringInBuffer(const char **buffer_address) {
 	return hash;
 }
 
-//kannski gera þetta þannig ef það les tvö 0 í röð þá hættir það
 void printKeyBuffer(char *buffer, size_t buffer_size, int do_print) {
 	int string_end = false;	
 
