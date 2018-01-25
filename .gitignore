@@ -1,2 +1,3 @@
-databaseRelations.*
+databaseRelationInfo.xcodeproj
+databaseRelationInfoDebug*
 .DS_Store
