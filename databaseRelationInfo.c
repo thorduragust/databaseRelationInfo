@@ -136,7 +136,12 @@ void attributeClosure(char *closure_buffer, char *attribute, functionalDependenc
 	closure_buffer[closure_buffer_index] = 0;
 }
 
+/*
+þegar ég er að index-a eftir mask ætti ég að gera eitthvað eins og while(mask != 0) og svo bara shifti-a, 
+hækka einhverja index tölu og athuga hvort síðasti bitinn sé ekki 0
+*/
 void relationCandidateKeys(char *key_buffer, size_t key_buffer_size, char *relation, functionalDependency *functional_set, size_t functional_count) {
+	int key_lookup_table[USED_CHARACTER_RANGE][USED_CHARACTER_RANGE];
 	int relation_length = strlen(relation);
 	int key_hash[1 << relation_length];
 	int key_hash_index = 0;
@@ -224,8 +229,6 @@ void relationCandidateKeys(char *key_buffer, size_t key_buffer_size, char *relat
 		char possible_key_closure[relation_length + 1];
 		memset(possible_key_closure, 0, relation_length + 1);
 		attributeClosure(possible_key_closure, possible_key, functional_set, functional_count);
-
-		//printf("%s: %s\n", possible_key, possible_key_closure);
 		
 		if(strcmp(relation, possible_key_closure) == 0) {
 			unsigned int possible_key_hash = hashNullTermString(possible_key);
@@ -293,7 +296,7 @@ int main() {
 		//powerSet("ABC");
 	#endif
 
-	#if 1
+	#if 0
 		functionalDependency f[] = {(functionalDependency){"A", "B"},
 									(functionalDependency){"B", "A"},
 									(functionalDependency){"C", "D"},
@@ -325,7 +328,7 @@ int main() {
 		printCandidateKeys("ABCDE", f, arr_length(f));
 	#endif
 
-	#if 0
+	#if 1
 	functionalDependency f[] = {(functionalDependency){"A", "B"},
 								(functionalDependency){"B", "A"},
 								(functionalDependency){"C", "D"},
