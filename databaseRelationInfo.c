@@ -3,18 +3,6 @@
 #include "string.h"
 #include "assert.h"
 
-#define true 1
-#define false 0
-
-typedef char int8;
-typedef unsigned char uint8;
-typedef short int16;
-typedef unsigned short uint16;
-typedef int int32;
-typedef unsigned int uint32;
-typedef long long int int64;
-typedef unsigned long long int uint64;
-
 #define arr_length(a) (sizeof(a)/sizeof(a)[0])
 
 #define printIntegerBinary(n, type)							\
@@ -67,7 +55,7 @@ unsigned int hashStringInBuffer(const char **buffer_address) {
 }
 
 void printKeyBuffer(char *buffer, size_t buffer_size, int do_print) {
-	int string_end = false;	
+	int string_end = 0;	
 
 	FILE *output;
 
@@ -82,10 +70,10 @@ void printKeyBuffer(char *buffer, size_t buffer_size, int do_print) {
 			if(string_end) break;
 
 			putc('\n', output);
-			string_end = true;
+			string_end = 1;
 		}else {
 			putc(buffer[i], output);
-			string_end = false;
+			string_end = 0;
 		}
 	}
 
@@ -108,11 +96,11 @@ void attributeClosure(char *closure_buffer, char *attribute, functionalDependenc
 		char *x_attribute = functional_set[i].x;
 		char *y_attribute = functional_set[i].y;
 		
-		int x_in_closure = true;
+		int x_in_closure = 1;
 
 		for(int j = 0; j < strlen(x_attribute); j++) {
 			if(!(closure_mask & (1 << (x_attribute[j] - 'A')))) {
-				x_in_closure = false;
+				x_in_closure = 0;
 				break;	
 			}
 		}
@@ -279,7 +267,7 @@ void printCandidateKeys(char *relation, functionalDependency *functional_set, si
 	printf("%d\n", buffer_size);
 
 	relationCandidateKeys(buffer, buffer_size, relation, functional_set, functional_count);
-	printKeyBuffer(buffer, buffer_size, true);
+	printKeyBuffer(buffer, buffer_size, 1);
 
 	free(buffer);
 }
